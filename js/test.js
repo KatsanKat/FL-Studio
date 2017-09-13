@@ -141,6 +141,7 @@ function draw() {
     else if( leftPressed && charax > 0 ) {
         charax -= 7;
     }
+
     else if( upPressed && charay == canvas.height - 90) {
 
         function jump(){
