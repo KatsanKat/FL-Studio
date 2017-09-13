@@ -11,7 +11,6 @@ var clignotement = function(){
 periode = setInterval(clignotement, 1000);
 var spacePressed = false;
 document.addEventListener("keydown", keyDownHandler, false);
-console.log(spacePressed);
 function keyDownHandler(e) {
     if(e.keyCode == 32) {
         spacePressed = true;

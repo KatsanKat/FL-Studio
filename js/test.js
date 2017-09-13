@@ -124,6 +124,9 @@ function keyUpHandler(e) {
     }
 }
 
+var _stopJump = false;
+var _bascule = -1;
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBackground();
@@ -138,33 +141,31 @@ function draw() {
     else if( leftPressed && charax > 0 ) {
         charax -= 7;
     }
-    else if( upPressed && charay + 60 == canvas.height - 30) {
+    else if( upPressed && charay == canvas.height - 90) {
 
         function jump(){
-            function jumpUp() {
-                charay -= 10;
-            }
-            function jumpDown(){
-                charay += 10;
-            }
 
-            console.log(charay + " avant jumpUP");
-            jumpUp();
-            console.log(charay + " apres jumpUP"); 
+            _stopJump = false;
+            _bascule = -1;
+                setInterval(function(){
+                    if ( _stopJump ) {
+                        return;
+                    }
 
-            if (charay <= 50){
-                console.log(charay + " dans la fonction down"); 
+                    charay += _bascule;
+                    console.log(charay);
 
-                jumpDown();
-            }
-
-            // setInterval(jumpUp, 10);
+                    if (charay == canvas.height - 200){
+                        _bascule = 1;
+                    }else if (charay >= canvas.height - 90) {
+                        _stopJump = true;
+                    }
+                },10);
         }
-        setInterval(jump, 30);
+        jump();
     }
 
     x += dx;
-    // y += dy;
 }
 
 setInterval(draw, 10);
