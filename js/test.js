@@ -9,37 +9,48 @@ var ctx = canvas.getContext('2d');
 ctx.canvas.width  = window.innerWidth;
 ctx.canvas.height = window.innerHeight;
 
-//  Dégradé
-ctx.beginPath();
-var degrade = ctx.createLinearGradient(0, screenHeight, 0, 0);
-degrade.addColorStop(0, '#113F9B');
-degrade.addColorStop(1, '#AB40C9');
+//  Fonction de dessin du brackground en Dégradé
 
-ctx.fillStyle = degrade;
-ctx.fillRect(0, 0, screenWidth, screenHeight);
-ctx.closePath;
+function drawBackground(){
+    ctx.beginPath();
+    var degrade = ctx.createLinearGradient(0, screenHeight, 0, 0);
+    degrade.addColorStop(0, '#113F9B');
+    degrade.addColorStop(1, '#AB40C9');
 
-//  Spawn
-ctx.beginPath();
+    ctx.fillStyle = degrade;
+    ctx.fillRect(0, 0, screenWidth, screenHeight);
+    ctx.closePath;
+}
+
+//  Fonction de dessin du Spawn
+
 var spawnWidth = 100;
 var spawnHeight = 30;
 var spawnx = 0;
 var spawny = screenHeight - spawnHeight;
-ctx.rect(spawnx, spawny, spawnWidth, spawnHeight);
-ctx.fillStyle = "#fff";
-ctx.fill();
-ctx.closePath;
+
+function drawSpawn(){
+    ctx.beginPath();
+    ctx.rect(spawnx, spawny, spawnWidth, spawnHeight);
+    ctx.fillStyle = "#fff";
+    ctx.fill();
+    ctx.closePath;
+}
 
 //  Ending
-ctx.beginPath();
+
 var endingWidth = 100;
 var endingHeight = 30;
 var endingx = screenWidth - endingWidth;
 var endingy = screenHeight - endingHeight;
-ctx.rect(endingx, endingy, endingWidth, endingHeight);
-ctx.fillStyle = "#fff";
-ctx.fill();
-ctx.closePath;
+
+function drawEnding() {
+    ctx.beginPath();
+    ctx.rect(endingx, endingy, endingWidth, endingHeight);
+    ctx.fillStyle = "#fff";
+    ctx.fill();
+    ctx.closePath;
+}
 
 //  Floor
 
@@ -47,17 +58,22 @@ var floorWidth = screenWidth - 200;
 var floorHeight = 30;
 var floorx = 100;
 var floory = screenHeight - 30;
-ctx.beginPath();
-ctx.rect(floorx, floory,floorWidth, floorHeight);
-ctx.fillStyle = "#84D6A3"
-ctx.fill()
-ctx.closePath;
+
+function drawFloor() {
+    ctx.beginPath();
+    ctx.rect(floorx, floory,floorWidth, floorHeight);
+    ctx.fillStyle = "#84D6A3"
+    ctx.fill()
+    ctx.closePath;
+}
 
 //  Character
+
 var charaWidth = 20;
 var charaHeight = 60;
 var charax = 30;
 var charay = floory - charaHeight;
+
 
 function drawCharacter() {
     ctx.beginPath();
@@ -67,4 +83,54 @@ function drawCharacter() {
     ctx.closePath;
 }
 
-drawCharacter()
+
+//Function start
+var x = canvas.width/2;
+// var y = canvas.height-30;
+var dx = 2;
+var dy = -2;
+var leftPressed = false;
+var rightPressed = false;
+
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+
+function keyDownHandler(e) {
+    if(e.keyCode == 39) {
+        rightPressed = true;
+        console.log('droite');
+    }
+    else if(e.keyCode == 37) {
+        leftPressed = true;
+        console.log('gauche');
+    }
+}
+function keyUpHandler(e) {
+    if(e.keyCode == 39) {
+        rightPressed = false;
+    }
+    else if(e.keyCode == 37) {
+        leftPressed = false;
+    }
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBackground();
+    drawSpawn();
+    drawEnding();
+    drawFloor();
+    drawCharacter();
+
+    if( rightPressed && charax < canvas.width - charaWidth ) {
+        charax += 7;
+    }
+    else if( leftPressed && charax > 0 ) {
+        charax -= 7;
+    }
+
+    x += dx;
+    y += dy;
+}
+
+setInterval(draw, 10);
