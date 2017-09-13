@@ -85,12 +85,15 @@ function drawCharacter() {
 
 
 //Function start
+
 var x = canvas.width/2;
-// var y = canvas.height-30;
+var y = canvas.height-30;
 var dx = 2;
-var dy = -2;
+var dy = 0.9;
 var leftPressed = false;
 var rightPressed = false;
+var upPressed = false;
+
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -104,6 +107,10 @@ function keyDownHandler(e) {
         leftPressed = true;
         console.log('gauche');
     }
+    else if(e.keyCode == 38) {
+        upPressed = true;
+        console.log('haut');
+    }
 }
 function keyUpHandler(e) {
     if(e.keyCode == 39) {
@@ -111,6 +118,9 @@ function keyUpHandler(e) {
     }
     else if(e.keyCode == 37) {
         leftPressed = false;
+    }
+    else if(e.keyCode == 38) {
+        upPressed = false;
     }
 }
 
@@ -128,9 +138,32 @@ function draw() {
     else if( leftPressed && charax > 0 ) {
         charax -= 7;
     }
+    else if( upPressed && charay + 60 == canvas.height - 30) {
+
+        function jump(){
+
+
+                function jumpUp() {
+                    charay -= 10;
+                    console.log(charay);
+
+                }
+                if (charay <= 30){
+                    function jumpDown(){
+                        charay += 10;
+                    }
+                    return jumpDown();
+                }
+                jumpUp();
+                // setInterval(jumpUp, 10);
+
+        }
+        setInterval(jump, 30)
+
+    }
 
     x += dx;
-    y += dy;
+    // y += dy;
 }
 
 setInterval(draw, 10);
