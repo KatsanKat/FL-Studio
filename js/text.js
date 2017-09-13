@@ -8,6 +8,15 @@ var clignotement = function(){
    } 
 }; 
 
-// mise en place de l appel de la fonction toutes les 0.8 secondes 
-// Pour arrêter le clignotement : clearInterval(periode); 
-periode = setInterval(clignotement, 1000); 
+periode = setInterval(clignotement, 1000);
+var spacePressed = false;
+document.addEventListener("keydown", keyDownHandler, false);
+function keyDownHandler(e) {
+    if(e.keyCode == 32) {
+        spacePressed = true;
+    }
+    if(spacePressed == true){
+		clearInterval(periode);
+		document.getElementById('text-init').style.visibility='hidden'; 
+	} 
+}
