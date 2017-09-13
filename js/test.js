@@ -145,16 +145,22 @@ function draw() {
 
                 function jumpUp() {
                     charay -= 10;
-                    console.log(charay);
+                }
+                function jumpDown(){
+                    charay += 10;
+                }
 
-                }
-                if (charay <= 30){
-                    function jumpDown(){
-                        charay += 10;
-                    }
-                    return jumpDown();
-                }
+                console.log(charay);
                 jumpUp();
+
+                if (charay <= 30){
+
+                    console.log(charay + "dans la fonction down");
+
+                    jumpDown();
+                }
+
+
                 // setInterval(jumpUp, 10);
 
         }
