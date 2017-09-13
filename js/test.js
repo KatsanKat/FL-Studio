@@ -26,7 +26,6 @@ var spawny = screenHeight -30;
 ctx.rect(spawnx, spawny, 100, 30);
 ctx.fillStyle = "#fff";
 ctx.fill();
-
 ctx.closePath;
 
 //Ending
@@ -35,3 +34,15 @@ var endingy = screenHeight -30;
 ctx.rect(endingx, endingy, 100, 30);
 ctx.fillStyle = "#fff";
 ctx.fill();
+ctx.closePath;
+
+//Floor
+ctx.beginPath();
+var floorWidth = screenWidth - 200;
+var floorHeight = 30;
+var floorx = 100;
+var floory = screenHeight -30;
+ctx.rect(floorx, floory,floorWidth, floorHeight);
+ctx.fillStyle = "#84D6A3"
+ctx.fill()
+ctx.closePath;
